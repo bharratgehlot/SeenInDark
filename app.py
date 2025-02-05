@@ -1,3 +1,5 @@
+# The Flask App will Show a Fact or unseen image that users have never seen before. It should be thought provoking, shocking and entertaning. 
+
 from flask import Flask, render_template
 import datetime
 
