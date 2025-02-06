@@ -3,10 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SeenInDark</title>
+    <title>SeenInDark - Daily Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .image-container {
+            margin: 20px auto;
+            max-width: 80%;
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .description {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .timer {
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
 </head>
 <body>
+
     <h1>Welcome to SeenInDark</h1>
-    <p>Today's Date: {{ date }}</p>
+    <h2>Today's Image</h2>
+    
+    <div class="image-container">
+        <img src="{{ image_path }}" alt="Image of the Day">
+        <div class="description">
+            <p><strong>Description:</strong> {{ description }}</p>
+        </div>
+        <div>
+            <p><strong>Date:</strong> {{ date }}</p>
+        </div>
+    </div>
+
+    <div class="timer">
+        <p>Next image update in: <span id="countdown"></span></p>
+    </div>
+
+    <script>
+        // JavaScript to calculate and display the countdown timer
+        function updateTimer() {
+            var now = new Date();
+            var nextUpdate = new Date("{{ next_update_date }}");
+            var timeRemaining = nextUpdate - now;
+
+            if (timeRemaining <= 0) {
+                document.getElementById("countdown").innerHTML = "The image has been updated!";
+                return;
+            }
+
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        }
+
+        setInterval(updateTimer, 1000); // Update every second
+        updateTimer(); // Initial call to show the timer immediately
+    </script>
+
 </body>
 </html>
