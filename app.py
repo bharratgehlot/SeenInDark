@@ -19,8 +19,9 @@ db.init_app(app)
 # Create the table if dont exists
 
 with app.app_context():
-  db.create_all()
-
+     db.init_app(app)
+     db.create_all()
+      
 
 @app.route('/')
 def index():
@@ -44,4 +45,4 @@ def index():
 
 
 if __name__ == "__main__":
-  app.run(debug=True, port = 5000)
+    app.run(debug=True, port=5000, host="0.0.0.0")
