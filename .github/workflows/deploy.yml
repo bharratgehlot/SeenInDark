@@ -25,8 +25,8 @@ jobs:
       - name: Deploy to Lightsail
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@your-lightsail-ip << 'EOF'
-            cd /path/to/your/project
-            git pull origin main  # Pull the latest changes from your repository
+            cd cd SeenInDark
+            git pull origin master  # Pull the latest changes from your repository
             sudo systemctl restart gunicorn  # Restart the Gunicorn service
             sudo systemctl restart nginx  # Restart the Nginx service
           EOF
