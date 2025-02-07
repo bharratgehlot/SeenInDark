@@ -13,8 +13,6 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///seenindark.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-#Initilize the database
-db.init_app(app)
 
 # Create the table if dont exists
 
