@@ -1,0 +1,4 @@
+Activate venv - venv\Scripts\activate
+Deactivate venv -  Deactivate
+
+Python Intrepator = Python 3.11.5 venvv/

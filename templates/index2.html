@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeenInDark - Daily Image</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #ffffff;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #333;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2e8b57;
+            font-size: 2.2em;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+
+        .image-container {
+            margin: 20px auto;
+            max-width: 100%;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .description {
+            font-size: 1.1em;
+            margin-top: 15px;
+            color: #333;
+            background: #e0f7fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .timer {
+            font-size: 1.3em;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+            padding: 8px 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            width: max-content;
+            margin: 20px auto;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #333;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            .description {
+                font-size: 1em;
+                padding: 8px;
+            }
+
+            .timer {
+                font-size: 1.1em;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            .timer {
+                font-size: 1em;
+                padding: 8px;
+            }
+
+            .image-container {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7Y2L8R161F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7Y2L8R161F');
+</script>
+
+<body>
+
+    <h1>Codex Lab's SeenInDark</h1>
+    <h2>Today's Featured</h2>
+    
+    <div class="image-container">
+        <img src="{{ image_path }}" alt="Image of the Day">
+        <div class="description">
+            <p><strong>Description:</strong> {{ description }}</p>
+        </div>
+        <div>
+            <p><strong>Date:</strong> {{ date }}</p>
+        </div>
+    </div>
+
+    <div class="timer">
+        <p>Next image update in: <span id="countdown"></span></p>
+    </div>
+
+    <script>
+        function updateTimer() {
+            var now = new Date();
+            var nextUpdate = new Date("{{ next_update_date }}");
+            var timeRemaining = nextUpdate - now;
+
+            if (timeRemaining <= 0) {
+                document.getElementById("countdown").innerHTML = "The image has been updated!";
+                return;
+            }
+
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+
+    <div class="footer">
+        <p>&copy; 2025 SeenInDark. All rights reserved.</p>
+    </div>
+
+</body>
+</html>

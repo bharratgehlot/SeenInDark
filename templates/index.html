@@ -40,6 +40,8 @@
 
   gtag('config', 'G-7Y2L8R161F');
 </script>
+
+
 <body>
 
     <h1>Welcome to SeenInDark</h1>
@@ -63,7 +65,7 @@
         // JavaScript to calculate and display the countdown timer
         function updateTimer() {
             var now = new Date();
-            var nextUpdate = new Date("{{ next_update_date }}");
+            var nextUpdate = new Date("{{ next_update_date }}");  // Parsing the formatted string from Flask
             var timeRemaining = nextUpdate - now;
 
             if (timeRemaining <= 0) {

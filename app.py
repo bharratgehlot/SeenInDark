@@ -1,51 +1,44 @@
-# The Flask App will Show a Fact or unseen image that users have never seen before. It should be thought provoking, shocking and entertaning. 
-# Testing Workflow Again
-# Testing Workflow - 11-02-25
-# Testing Workflow - 11-02-25 (2)
-
 from flask import Flask, render_template
-from datetime import datetime , timedelta
+from datetime import datetime, timedelta
 from models import db, Image
-
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
-
-
-#Configure SQLite database
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///seenindark.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-
-# Create the table if dont exists
-
+# Initialize the app and create tables inside the app context
 with app.app_context():
-     db.init_app(app)
-     db.create_all()
-      
+    db.init_app(app)
+    db.create_all()
+
+# Global variable to store the latest image
+latest_image = None
+
+def update_image():
+    global latest_image
+    with app.app_context():
+        today = datetime.today().date()
+        latest_image = Image.query.filter_by(date=today).first()
 
 @app.route('/')
 def index():
-    # Get today's date
-    today = datetime.today().date()
-
-    # Fetch the image for today
-    image = Image.query.filter_by(date=today).first()
-
-    if image:
-        # Calculate the next image update time (at midnight of the next day)
-        next_update = datetime.combine(today + timedelta(days=1), datetime.min.time())
-
-        return render_template('index.html', 
-                               image_path=image.image_path, 
-                               description=image.description, 
-                               date=image.date, 
-                               next_update_date=next_update)
-    
+    if latest_image:
+        next_update = datetime.combine(datetime.today().date() + timedelta(days=1), datetime.min.time())
+        next_update_str = next_update.isoformat()
+        return render_template('index2.html', 
+                               image_path=latest_image.image_path, 
+                               description=latest_image.description, 
+                               date=latest_image.date, 
+                               next_update_date=next_update_str)
     return "No image found for today."
 
-
 if __name__ == "__main__":
-    app.run()
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(update_image, 'cron', hour=0, minute=0)  # Runs at midnight
+    scheduler.start()
+    update_image()  # Load initial image
+    app.run(debug=True, port=5000, host="0.0.0.0"     )
     
-#debug=True, port=5000, host="0.0.0.0"    
+   #debug=True, port=5000, host="0.0.0.0"     
