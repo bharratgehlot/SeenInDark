@@ -1,3 +1,5 @@
+#Port Removed
+
 from flask import Flask, render_template
 from datetime import datetime, timedelta
 from models import db, Image
@@ -39,6 +41,6 @@ if __name__ == "__main__":
     scheduler.add_job(update_image, 'cron', hour=0, minute=0)  # Runs at midnight
     scheduler.start()
     update_image()  # Load initial image
-    app.run(debug=True, port=5000, host="0.0.0.0"     )
+    app.run()
     
    #debug=True, port=5000, host="0.0.0.0"     
