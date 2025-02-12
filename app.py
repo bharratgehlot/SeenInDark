@@ -12,9 +12,18 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///seenindark.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Initialize the app and create tables inside the app context
+
+'''
 with app.app_context():
     db.init_app(app)
     db.create_all()
+   '''
+    
+db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+
 
 # Global variable to store the latest image
 latest_image = None
