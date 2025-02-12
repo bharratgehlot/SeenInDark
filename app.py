@@ -29,7 +29,7 @@ def index():
     if latest_image:
         next_update = datetime.combine(datetime.today().date() + timedelta(days=1), datetime.min.time())
         next_update_str = next_update.isoformat()
-        return render_template('index2.html', 
+        return render_template('index.html', 
                                image_path=latest_image.image_path, 
                                description=latest_image.description, 
                                date=latest_image.date, 
