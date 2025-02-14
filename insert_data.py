@@ -46,7 +46,7 @@ def insert_sample_data():
     # Create a new image record for each day
       new_image = Image(
          date= today + timedelta(days=i), # Set the date for each image for 30 days
-         image_path= f"static/images/sample{i+1}.jpg",
+         image_path= f"sample{i+1}.jpg",
          description=descriptions[i],
          shown = False
       )
