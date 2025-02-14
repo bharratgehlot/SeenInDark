@@ -32,6 +32,9 @@ def update_image():
     with app.app_context():
         today = datetime.today().date()
         latest_image = Image.query.filter_by(date=today).first()
+        # For debugging, you could print the latest image:
+        print("Latest image:", latest_image)
+
 
 @app.route('/')
 def index():

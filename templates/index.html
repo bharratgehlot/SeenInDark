@@ -133,8 +133,9 @@
     <h2>Today's Featured</h2>
     
     <div class="image-container">
-        <img src="{{ image_path }}" alt="Image of the Day">
+        <img src="{{ url_for('static', filename='pictures/' ~ image_path) }}" alt="Image of the Day">
         <div class="description">
+            
             <p><strong>Description:</strong> {{ description }}</p>
         </div>
         <div>
